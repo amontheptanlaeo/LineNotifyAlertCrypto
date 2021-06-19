@@ -56,7 +56,7 @@ async function CryptoReport() {
         temp1 = parseFloat(res[i].price)
         console.log(temp1)
         notify.send({
-          message: `หมากำลังบินไปดวงจันทร์ !!!!!!!!!! ราคา ${(parseFloat(res[i].price))} บาท`,
+          message: `หมากำลังบินไปดวงจันทร์ !!!!!!!!!! ราคาา ${(parseFloat(res[i].price))} บาท`,
           sticker: 'smile'
           // shorthand
           // image: { fullsize: 'http://example.com/1024x1024.jpg', thumbnail: 'http://example.com/240x240.jpg' } // remote url
