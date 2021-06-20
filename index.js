@@ -13,9 +13,8 @@ Object.size = function (obj) {
 };
 
 const notify = new lineApi.Notify({
-  /* mQIc4uoXvv2cpzTzjsjBmORQszPAcWwSYOjfw8OdP8q  Group Crypto*/
-  /* 1BjoiZ8HNzPqgsih486zVr8McULIuEB3Vv8kFlfxiXk Personal */
-  token: '1BjoiZ8HNzPqgsih486zVr8McULIuEB3Vv8kFlfxiXk'
+
+  token: '[LineNotify get key]'
 })
 
 
@@ -23,53 +22,54 @@ async function CryptoReport() {
 
   try {
 
-
-
-    const res = await axios.get('https://api.nomics.com/v1/currencies/ticker?key=b81824660531d2ac402730ae385a800503042030&ids=DOGE,IOST&convert=THB&per-page=100&page=1').then(response => response.data)
+    const res = await axios.get('https://api.nomics.com/v1/currencies/ticker?key=[Nomic.com get key]&ids=DOGE,IOST&convert=THB&per-page=100&page=1').then(response => response.data)
 
     var size = Object.size(res);
-
+    
     if(temp1 === 0) temp1 = parseFloat(res[0].price)
     if(temp2 === 0) temp2 = parseFloat(res[1].price)
 
 
-
-    for (let i = 0; i < size; i++) {
-      if (res[i].name === 'Dogecoin' && (parseFloat(res[i].price)-temp1) <= -0.01) {
+        //DOGE
+        if ((parseFloat(res[0].price)-temp1) <= -0.05) {
         console.log(temp1)
-        temp1 = parseFloat(res[i].price)
+        temp1 = parseFloat(res[0].price)
         console.log(temp1)
         notify.send({
-          message: `หมากำลังตกหนัก !!!!!!!!!! ราคา ${(parseFloat(res[i].price))} บาท`,
+          message: `หมากำลังตกหนัก !!!!!!!!!! ราคา ${(parseFloat(res[0].price))} บาท`,
           sticker: 'surprise'
+
         }).then(console.log).catch((e)=>console.log(e))
 
-      } else if (res[i].name === 'Dogecoin' && (parseFloat(res[i].price)-temp1) >= 0.01) {
+      } else if ((parseFloat(res[0].price)-temp1) >= 0.05) {
         console.log(temp1)
-        temp1 = parseFloat(res[i].price)
+        temp1 = parseFloat(res[0].price)
         console.log(temp1)
         notify.send({
-          message: `หมากำลังบินไปดวงจันทร์ !!!!!!!!!! ราคา ${(parseFloat(res[i].price))} บาท`,
+          message: `หมากำลังบินไปดวงจันทร์ !!!!!!!!!! ราคา ${(parseFloat(res[0].price))} บาท`,
           sticker: 'smile'
 
         }).then(console.log).catch((e)=>console.log(e))
 
-      } else if (res[i].name === 'IOStoken' && (parseFloat(res[i].price)-temp2) >= 0.1) {
+      }
+
+      //IOST
+      if ((parseFloat(res[1].price)-temp2) >= 0.1) {
         console.log(temp2)
-        temp2 = parseFloat(res[i].price)
+        temp2 = parseFloat(res[1].price)
         console.log(temp2)
         notify.send({
-          message: `${res[i].name} กำลังขึ้นแรง !!!! ราคา ${(parseFloat(res[i].price))} บาท`,
+          message: `${res[1].name} กำลังขึ้นแรง !!!! ราคา ${(parseFloat(res[1].price))} บาท`,
           sticker: 'smile'
 
         }).then(console.log).catch((e)=>console.log(e))
 
-      } else if (res[i].name === 'IOStoken' && (parseFloat(res[i].price)-temp2) <= -0.1) {
+      } else if ((parseFloat(res[1].price)-temp2) <= -0.1) {
         console.log(temp2)
-        temp2 = parseFloat(res[i].price)
+        temp2 = parseFloat(res[1].price)
         console.log(temp2)
         notify.send({
-          message: `${res[i].name} กำลังตกแรง !!!! ราคา ${(parseFloat(res[i].price))} บาท`,
+          message: `${res[1].name} กำลังตกแรง !!!! ราคา ${(parseFloat(res[1].price))} บาท`,
           sticker: 'surprise'
 
         }).then(console.log).catch((e)=>console.log(e))
@@ -78,14 +78,9 @@ async function CryptoReport() {
         return
       }
 
-    }
-    console.log(temp1)
-    console.log(temp2)
-
   } catch (e) {
     notify.send({
       message: `โปรแกรมมีปัญหาแก้ไขด่วน`,
-
     }).then(console.log).catch((e)=>console.log(e))
     console.log(e)
   }
