@@ -5,8 +5,16 @@
 
 # Install
 - npm install
-- Add LineNotify key in index.js
-- Add Nomics.com key in index.js
+* Add LineNotify key in index.js
+  * ```javascript
+    const notify = new lineApi.Notify({
+    token: '...' 
+    })
+    ```
+* Add Nomics.com key in index.js
+  * ```javascript
+    const res = await axios.get('https://api.nomics.com/v1/currencies/ticker?key=<....>&ids=DOGE,IOST&convert=THB&per-page=100&page=1').then(response => response.data)
+    ```
 - npm start
 
 # Get Key Nomics.com
