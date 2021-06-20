@@ -1,7 +1,6 @@
 # LineNotifyAlertCrypto
 - Node.js
 - Alert Dodge coin when price up/down 0.05 Dodge
-- Alert IOSToken when price up/down 0.5 IOST
 
 # Install
 - npm install
