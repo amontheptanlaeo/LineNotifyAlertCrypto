@@ -1,6 +1,3 @@
-
-var express = require('express');
-var app = express();
 var lineApi = require("line-api")
 const axios = require('axios')
 
@@ -32,7 +29,6 @@ async function CryptoReport() {
 
     var size = Object.size(res);
 
-    // console.log(size)
     if(temp1 === 0) temp1 = parseFloat(res[0].price)
     if(temp2 === 0) temp2 = parseFloat(res[1].price)
 
@@ -46,8 +42,6 @@ async function CryptoReport() {
         notify.send({
           message: `หมากำลังตกหนัก !!!!!!!!!! ราคา ${(parseFloat(res[i].price))} บาท`,
           sticker: 'surprise'
-          // shorthand
-          // image: { fullsize: 'http://example.com/1024x1024.jpg', thumbnail: 'http://example.com/240x240.jpg' } // remote url
         }).then(console.log).catch((e)=>console.log(e))
 
       } else if (res[i].name === 'Dogecoin' && (parseFloat(res[i].price)-temp1) >= 0.01) {
@@ -57,8 +51,7 @@ async function CryptoReport() {
         notify.send({
           message: `หมากำลังบินไปดวงจันทร์ !!!!!!!!!! ราคา ${(parseFloat(res[i].price))} บาท`,
           sticker: 'smile'
-          // shorthand
-          // image: { fullsize: 'http://example.com/1024x1024.jpg', thumbnail: 'http://example.com/240x240.jpg' } // remote url
+
         }).then(console.log).catch((e)=>console.log(e))
 
       } else if (res[i].name === 'IOStoken' && (parseFloat(res[i].price)-temp2) >= 0.1) {
@@ -68,8 +61,7 @@ async function CryptoReport() {
         notify.send({
           message: `${res[i].name} กำลังขึ้นแรง !!!! ราคา ${(parseFloat(res[i].price))} บาท`,
           sticker: 'smile'
-          // shorthand
-          // image: { fullsize: 'http://example.com/1024x1024.jpg', thumbnail: 'http://example.com/240x240.jpg' } // remote url
+
         }).then(console.log).catch((e)=>console.log(e))
 
       } else if (res[i].name === 'IOStoken' && (parseFloat(res[i].price)-temp2) <= -0.1) {
@@ -79,8 +71,7 @@ async function CryptoReport() {
         notify.send({
           message: `${res[i].name} กำลังตกแรง !!!! ราคา ${(parseFloat(res[i].price))} บาท`,
           sticker: 'surprise'
-          // shorthand
-          // image: { fullsize: 'http://example.com/1024x1024.jpg', thumbnail: 'http://example.com/240x240.jpg' } // remote url
+
         }).then(console.log).catch((e)=>console.log(e))
 
       } else {
@@ -94,21 +85,11 @@ async function CryptoReport() {
   } catch (e) {
     notify.send({
       message: `โปรแกรมมีปัญหาแก้ไขด่วน`,
-      // shorthand
-      // image: { fullsize: 'http://example.com/1024x1024.jpg', thumbnail: 'http://example.com/240x240.jpg' } // remote url
+
     }).then(console.log).catch((e)=>console.log(e))
     console.log(e)
   }
 
 }
-
-/* exports.app = functions.pubsub.schedule("* * * * *").timeZone('Asia/Bangkok').onRun((context) => {
-
-   
-    //setInterval(CryptoReport, 5000);
-    //setInterval(Status, 6500); //5นาที 300000
-
-}); */
-
-    setInterval(CryptoReport,5500)
-    console.log("ทำงานปกติ")
+    
+setInterval(CryptoReport,10000)
