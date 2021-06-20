@@ -13,7 +13,7 @@
     ```
 * Add Nomics.com key in index.js
   * ```javascript
-    const res = await axios.get('https://api.nomics.com/v1/currencies/ticker?key=<....>&ids=DOGE,IOST&convert=THB&per-page=100&page=1').then(response => response.data)
+    const res = await axios.get('https://api.nomics.com/v1/currencies/ticker?key=<....>
     ```
 - npm start
 
