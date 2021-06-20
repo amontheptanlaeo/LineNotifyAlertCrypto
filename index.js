@@ -3,6 +3,9 @@ const axios = require('axios')
 
 let temp1 = 0 , temp2 = 0
 
+const LineKey = '...'
+const NomicKey = '...'
+
 Object.size = function (obj) {
   var size = 0,
     key;
@@ -14,7 +17,7 @@ Object.size = function (obj) {
 
 const notify = new lineApi.Notify({
 
-  token: '[LineNotify get key]'
+  token: LineKey
 })
 
 
@@ -22,7 +25,7 @@ async function CryptoReport() {
 
   try {
 
-    const res = await axios.get('https://api.nomics.com/v1/currencies/ticker?key=[Nomic.com get key]&ids=DOGE,IOST&convert=THB&per-page=100&page=1').then(response => response.data)
+    const res = await axios.get('https://api.nomics.com/v1/currencies/ticker?key='+NomicKey+'&ids=DOGE&convert=USD&per-page=100&page=1').then(response => response.data)
 
     var size = Object.size(res);
     
@@ -36,7 +39,7 @@ async function CryptoReport() {
         temp1 = parseFloat(res[0].price)
         console.log(temp1)
         notify.send({
-          message: `หมากำลังตกหนัก !!!!!!!!!! ราคา ${(parseFloat(res[0].price))} บาท`,
+          message: `${res[0].name} Down!!!!!!!!!! price ${(parseFloat(res[0].price))} $`,
           sticker: 'surprise'
 
         }).then(console.log).catch((e)=>console.log(e))
@@ -46,31 +49,8 @@ async function CryptoReport() {
         temp1 = parseFloat(res[0].price)
         console.log(temp1)
         notify.send({
-          message: `หมากำลังบินไปดวงจันทร์ !!!!!!!!!! ราคา ${(parseFloat(res[0].price))} บาท`,
+          message: `${res[0].name} Boost!!!!!!!!!! price ${(parseFloat(res[0].price))} $`,
           sticker: 'smile'
-
-        }).then(console.log).catch((e)=>console.log(e))
-
-      }
-
-      //IOST
-      if ((parseFloat(res[1].price)-temp2) >= 0.1) {
-        console.log(temp2)
-        temp2 = parseFloat(res[1].price)
-        console.log(temp2)
-        notify.send({
-          message: `${res[1].name} กำลังขึ้นแรง !!!! ราคา ${(parseFloat(res[1].price))} บาท`,
-          sticker: 'smile'
-
-        }).then(console.log).catch((e)=>console.log(e))
-
-      } else if ((parseFloat(res[1].price)-temp2) <= -0.1) {
-        console.log(temp2)
-        temp2 = parseFloat(res[1].price)
-        console.log(temp2)
-        notify.send({
-          message: `${res[1].name} กำลังตกแรง !!!! ราคา ${(parseFloat(res[1].price))} บาท`,
-          sticker: 'surprise'
 
         }).then(console.log).catch((e)=>console.log(e))
 
@@ -80,7 +60,7 @@ async function CryptoReport() {
 
   } catch (e) {
     notify.send({
-      message: `โปรแกรมมีปัญหาแก้ไขด่วน`,
+      message: `Something wrong`,
     }).then(console.log).catch((e)=>console.log(e))
     console.log(e)
   }
